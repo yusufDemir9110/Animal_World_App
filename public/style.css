@@ -10,3 +10,6 @@
     justify-content: center;
     align-items: center;
 }
+#cartContainer img{
+    width:20%;
+}
