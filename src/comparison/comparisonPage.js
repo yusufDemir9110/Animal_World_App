@@ -1,7 +1,7 @@
 import { loadPage } from "../helpers/loadPage.js";
-import { randomLearnView } from "./randomLearnView.js";
+import { comparisonView } from "./comparisonView.js";
 
-export const randomLearnPage = () => {
+export const comparisonPage = () => {
   const handleNumber = (number) => {
     fetchData(number);
   };
@@ -20,6 +20,6 @@ export const randomLearnPage = () => {
   };
 
   const props = { handleNumber };
-  const view = randomLearnView(props);
+  const view = comparisonView(props);
   return view;
 };

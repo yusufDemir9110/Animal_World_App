@@ -1,4 +1,4 @@
-export const randomLearnView = (props) => {
+export const comparisonView = (props) => {
   const { handleNumber } = props;
 
   const element = document.createElement("div");
@@ -7,31 +7,33 @@ export const randomLearnView = (props) => {
         <h1>random Learn View</h1>
         <div>
           <h2>How many animals</h2>
+          <span>2</span>
+          <span>3</span>
+          <span>4</span>
           <span>5</span>
-          <span>6</span>
-          <span>7</span>
-          <span>8</span>
-          <span>9</span>
-          <span>10</span>
         </div>
         <div id="cartContainer"></div>
         
         
     `;
+  const cartContainer = element.querySelector("#cartContainer");
   const spans = Array.from(element.querySelectorAll("span"));
   spans.forEach((span) => {
     span.addEventListener("click", (e) => {
       handleNumber(parseInt(e.target.innerText));
+      cartContainer.innerHTML = "";
     });
   });
-  const cartContainer = element.querySelector("#cartContainer");
-  console.log(cartContainer);
+
   const showData = (data) => {
     data.forEach((data) => {
       const cart = document.createElement("div");
       cart.innerHTML = String.raw`
-        <h3>${data.name}</h3>
         <img src=${data.image_link} alt=${data.name} />
+        <h3>${data.name}</h3>
+        <h4>${data.animal_type}</h4>
+        <h4>${data.habitat}</h4>
+        
       `;
       cartContainer.appendChild(cart);
     });

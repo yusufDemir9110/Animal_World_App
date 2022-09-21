@@ -10,6 +10,13 @@
     justify-content: center;
     align-items: center;
 }
+#cartContainer{
+    display: flex;
+    justify-content: space-evenly;
+}
 #cartContainer img{
     width:20%;
+}
+#tourCartContainer img {
+    width: 20%;
 }
