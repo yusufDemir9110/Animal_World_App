@@ -14,7 +14,7 @@
     display: flex;
     justify-content: space-evenly;
 }
-#cartContainer img{
+.card img{
     width:20%;
 }
 #tourCartContainer img {

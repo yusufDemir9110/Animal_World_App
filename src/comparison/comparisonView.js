@@ -33,7 +33,8 @@ export const comparisonView = (props) => {
         <h3>${data.name}</h3>
         <h4>${data.animal_type}</h4>
         <h4>${data.habitat}</h4>
-        
+        <h4>${data.geo_range}</h4>
+        <h4>${data.diet}</h4>
       `;
       cartContainer.appendChild(cart);
     });
