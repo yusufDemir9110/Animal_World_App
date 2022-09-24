@@ -1,8 +1,18 @@
 export const memoryGameView = (props) => {
-  const { handleNumber, count, initQuestion, nextQuestion } = props;
+  const { handleNumber, count, initQuestion, nextQuestion, getHint } = props;
   const element = document.createElement("div");
   element.innerHTML = String.raw`
         <h1>memory Game View</h1>
+        <div>
+         <label htmlFor="name">
+          Name <input type="text" id="name"/>
+         </label>
+        </div>
+        <div>
+         <label htmlFor="age">
+          Age <input type="number" id="age"/>
+         </label>
+        </div>
         <div>
           <h2>How many animals</h2>
           <span>5</span>
@@ -24,6 +34,7 @@ export const memoryGameView = (props) => {
       cleanCardContainer();
     });
   });
+
   const cleanCardContainer = () => {
     cardContainer.innerHTML = "";
   };
@@ -32,7 +43,7 @@ export const memoryGameView = (props) => {
     card.classList.add("card");
     card.innerHTML = String.raw`
         <img src=${data.image_link} alt=${data.name} />
-        <h3>${data.name}</h3>
+        <h3>${data.name.replace("-", " ")}</h3>
         <h4>${data.animal_type}</h4>
         <h4>${data.habitat}</h4>
         <h4>${data.geo_range}</h4>
@@ -55,29 +66,47 @@ export const memoryGameView = (props) => {
   };
 
   const showQuestion = (data, index) => {
+    const name = element.querySelector("#name").value;
+    const age = element.querySelector("#age").value;
     const card = document.createElement("div");
     card.classList.add("card");
     card.innerHTML = String.raw`
         <img src=${data[index].image_link} alt=${data[index].name} />
-        <h4>What is this animal's name?</h4>
-        <input type="text" id="userAnswer" placeholder="Write here..."/>
-        <input type="submit" id="answerSubmit"/>
-        <button id="nextQuestion">Next</button>
+        <h4>${name} what is this animal's name?</h4>
+        <div>
+          <input type="text" id="userAnswer" placeholder="Write here..."/>
+          <input type="submit" id="answerSubmit"/>
+          <button id="nextQuestion">Next</button>
+          <button id="getHint">Get Hint</button>
+        </div>
+        
+        <div id="showHint"></div>
       `;
     cardContainer.appendChild(card);
 
     document.querySelector("#answerSubmit").addEventListener("click", () => {
       const userAnswer = document.querySelector("#userAnswer").value;
-      userAnswer.toLowerCase() === data[index].name.toLowerCase()
+      userAnswer.toLowerCase() ===
+      data[index].name.toLowerCase().replace("-", " ")
         ? (card.style.backgroundColor = "green")
         : (card.style.backgroundColor = "red");
     });
     const nextQuestionEl = document.querySelector("#nextQuestion");
-    nextQuestionEl.addEventListener("click", () => nextQuestion(data, index));
+    nextQuestionEl.addEventListener("click", () =>
+      nextQuestion(data, index, name)
+    );
+    const getHintEl = document.querySelector("#getHint");
+    getHintEl.addEventListener("click", () => getHint(data, index, age));
   };
-  const questionFinal = () => {
+
+  const showHint = (result) => {
+    const showHintEl = document.querySelector("#showHint");
+    showHintEl.textContent = result;
+  };
+
+  const questionFinal = (name) => {
     cardContainer.innerHTML = String.raw`
-      <h1>Congratulations</h1>
+      <h1>Congratulations ${name}! You finished the game!</h1>
       
     `;
   };
@@ -87,6 +116,7 @@ export const memoryGameView = (props) => {
     showData,
     showCount,
     showQuestion,
+    showHint,
     cleanCardContainer,
     gamePhaseStart,
     questionFinal,

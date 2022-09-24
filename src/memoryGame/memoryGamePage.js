@@ -22,7 +22,6 @@ export const memoryGamePage = () => {
   let count = 2;
   const showSlide = (data, number) => {
     view.showData(data[number]);
-
     let intervalId = null;
     const counterRender = () => {
       if (count > 0) {
@@ -46,17 +45,47 @@ export const memoryGamePage = () => {
     view.showQuestion(data, index);
   };
 
-  const nextQuestion = (data, index) => {
+  const nextQuestion = (data, index, name) => {
     index--;
     if (index >= 0) {
       view.cleanCardContainer();
       view.showQuestion(data, index);
     } else {
-      view.questionFinal();
+      view.questionFinal(name);
     }
   };
 
-  const props = { handleNumber, count, initQuestion, nextQuestion };
+  const getHint = (data, index, age) => {
+    let hint = data[index].name.replace("-", " ");
+    let hintWords = hint.split(" ");
+    let result = "";
+    if (age > 10) {
+      for (let i = 0; i < hintWords.length; i++) {
+        let hintWordArr = hintWords[i].split("");
+        hintWordArr.sort(() => {
+          return 0.5 - Math.random();
+        });
+        hintWords[i] = hintWordArr.join("");
+        result += hintWords[i] + " ";
+      }
+    } else {
+      for (let i = 0; i < hintWords.length; i++) {
+        let hintWordArrLast = hintWords[i]
+          .slice(2, hintWords[i].length)
+          .split("");
+
+        hintWordArrLast.sort(() => {
+          return 0.5 - Math.random();
+        });
+        hintWords[i] = hintWords[i].slice(0, 2) + hintWordArrLast.join("");
+
+        result += hintWords[i] + " ";
+      }
+    }
+    view.showHint(result);
+  };
+
+  const props = { handleNumber, count, initQuestion, nextQuestion, getHint };
   const view = memoryGameView(props);
   return view;
 };

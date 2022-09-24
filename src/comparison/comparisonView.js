@@ -12,23 +12,24 @@ export const comparisonView = (props) => {
           <span>4</span>
           <span>5</span>
         </div>
-        <div id="cartContainer"></div>
+        <div id="cardContainer"></div>
         
         
     `;
-  const cartContainer = element.querySelector("#cartContainer");
+  const cardContainer = element.querySelector("#cardContainer");
   const spans = Array.from(element.querySelectorAll("span"));
   spans.forEach((span) => {
     span.addEventListener("click", (e) => {
       handleNumber(parseInt(e.target.innerText));
-      cartContainer.innerHTML = "";
+      cardContainer.innerHTML = "";
     });
   });
 
   const showData = (data) => {
     data.forEach((data) => {
-      const cart = document.createElement("div");
-      cart.innerHTML = String.raw`
+      const card = document.createElement("div");
+      card.classList.add("card");
+      card.innerHTML = String.raw`
         <img src=${data.image_link} alt=${data.name} />
         <h3>${data.name}</h3>
         <h4>${data.animal_type}</h4>
@@ -36,7 +37,7 @@ export const comparisonView = (props) => {
         <h4>${data.geo_range}</h4>
         <h4>${data.diet}</h4>
       `;
-      cartContainer.appendChild(cart);
+      cardContainer.appendChild(card);
     });
   };
 
