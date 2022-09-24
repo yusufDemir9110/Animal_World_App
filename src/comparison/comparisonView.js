@@ -1,5 +1,5 @@
 export const comparisonView = (props) => {
-  const { handleNumber } = props;
+  const { handleNumber, handleSort } = props;
 
   const element = document.createElement("div");
 
@@ -13,7 +13,14 @@ export const comparisonView = (props) => {
           <span>5</span>
         </div>
         <div id="cardContainer"></div>
-        
+        <div id="sort">
+          <select id="sortSelect">
+            <option disabled selected>Sort by</option>
+            <option value="lifespan">lifespan</option>
+            <option value="weight_max">weight</option>
+            <option value="length_max">length</option>
+          </select>
+        </div>
         
     `;
   const cardContainer = element.querySelector("#cardContainer");
@@ -21,9 +28,12 @@ export const comparisonView = (props) => {
   spans.forEach((span) => {
     span.addEventListener("click", (e) => {
       handleNumber(parseInt(e.target.innerText));
-      cardContainer.innerHTML = "";
+      cleanCardContainer();
     });
   });
+  const cleanCardContainer = () => {
+    cardContainer.innerHTML = "";
+  };
 
   const showData = (data) => {
     data.forEach((data) => {
@@ -36,10 +46,18 @@ export const comparisonView = (props) => {
         <h4>${data.habitat}</h4>
         <h4>${data.geo_range}</h4>
         <h4>${data.diet}</h4>
+        <h4>${data.lifespan}</h4>
+        <h4>${data.length_max}</h4>
+        <h4>${data.weight_max}</h4>
       `;
       cardContainer.appendChild(card);
     });
+
+    const sortSelectEl = element.querySelector("#sortSelect");
+    sortSelectEl.addEventListener("change", (e) =>
+      handleSort(e.target.value, data)
+    );
   };
 
-  return { element, showData };
+  return { element, showData, cleanCardContainer };
 };

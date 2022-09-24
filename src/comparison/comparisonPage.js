@@ -19,7 +19,13 @@ export const comparisonPage = () => {
     }
   };
 
-  const props = { handleNumber };
+  const handleSort = (sortValue, data) => {
+    const sortedData = data.sort((a, b) => a[sortValue] - b[sortValue]);
+    view.cleanCardContainer();
+    view.showData(sortedData);
+  };
+
+  const props = { handleNumber, handleSort };
   const view = comparisonView(props);
   return view;
 };
