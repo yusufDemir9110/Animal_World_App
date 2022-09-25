@@ -1,5 +1,6 @@
 import { loadPage } from "../helpers/loadPage.js";
 import { comparisonView } from "./comparisonView.js";
+import { welcomePage } from "../welcome/welcomePage.js";
 
 export const comparisonPage = () => {
   const handleNumber = (number) => {
@@ -24,8 +25,11 @@ export const comparisonPage = () => {
     view.cleanCardContainer();
     view.showData(sortedData);
   };
+  const backHomePageClick = () => {
+    loadPage(welcomePage);
+  };
 
-  const props = { handleNumber, handleSort };
+  const props = { handleNumber, handleSort, backHomePageClick };
   const view = comparisonView(props);
   return view;
 };

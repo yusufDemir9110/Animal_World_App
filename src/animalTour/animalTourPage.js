@@ -1,5 +1,6 @@
 import { loadPage } from "../helpers/loadPage.js";
 import { animalTourView } from "./animalTourView.js";
+import { welcomePage } from "../welcome/welcomePage.js";
 
 export const animalTourPage = () => {
   const handleChange = () => {
@@ -18,7 +19,11 @@ export const animalTourPage = () => {
     }
   };
 
-  const props = { handleChange };
+  const backHomePageClick = () => {
+    loadPage(welcomePage);
+  };
+
+  const props = { handleChange, backHomePageClick };
   const view = animalTourView(props);
 
   return view;

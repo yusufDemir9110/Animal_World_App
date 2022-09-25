@@ -1,10 +1,13 @@
 export const animalTourView = (props) => {
-  const { handleChange } = props;
+  const { handleChange, backHomePageClick } = props;
   const element = document.createElement("div");
   element.innerHTML = String.raw`
         <h1>animal tour View</h1>
         <div id="tourCartContainer"></div>
         <button id="getData">Change</button>
+        <div>
+          <button id="backHomePage">Back to Home Page</button>
+        </div>
     `;
 
   const getDataBtn = element.querySelector("#getData");
@@ -21,6 +24,8 @@ export const animalTourView = (props) => {
       `;
     tourCartContainerEl.appendChild(cart);
   };
+  const backHomePageEl = element.querySelector("#backHomePage");
+  backHomePageEl.addEventListener("click", backHomePageClick);
 
   return { element, showData };
 };

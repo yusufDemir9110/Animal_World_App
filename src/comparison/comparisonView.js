@@ -1,5 +1,5 @@
 export const comparisonView = (props) => {
-  const { handleNumber, handleSort } = props;
+  const { handleNumber, handleSort, backHomePageClick } = props;
 
   const element = document.createElement("div");
 
@@ -20,6 +20,9 @@ export const comparisonView = (props) => {
             <option value="weight_max">weight</option>
             <option value="length_max">length</option>
           </select>
+        </div>
+        <div>
+          <button id="backHomePage">Back to Home Page</button>
         </div>
         
     `;
@@ -58,6 +61,9 @@ export const comparisonView = (props) => {
       handleSort(e.target.value, data)
     );
   };
+
+  const backHomePageEl = element.querySelector("#backHomePage");
+  backHomePageEl.addEventListener("click", backHomePageClick);
 
   return { element, showData, cleanCardContainer };
 };

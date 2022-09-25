@@ -1,5 +1,12 @@
 export const memoryGameView = (props) => {
-  const { handleNumber, count, initQuestion, nextQuestion, getHint } = props;
+  const {
+    handleNumber,
+    count,
+    initQuestion,
+    nextQuestion,
+    getHint,
+    backHomePageClick,
+  } = props;
   const element = document.createElement("div");
   element.innerHTML = String.raw`
         <h1>memory Game View</h1>
@@ -24,6 +31,9 @@ export const memoryGameView = (props) => {
         </div>
         <div id="showCount">${count}</div>
         <div id="cardContainer"></div>
+        <div>
+          <button id="backHomePage">Back to Home Page</button>
+        </div>
     `;
   const cardContainer = element.querySelector("#cardContainer");
   const spans = Array.from(element.querySelectorAll("span"));
@@ -110,6 +120,9 @@ export const memoryGameView = (props) => {
       
     `;
   };
+
+  const backHomePageEl = element.querySelector("#backHomePage");
+  backHomePageEl.addEventListener("click", backHomePageClick);
 
   return {
     element,

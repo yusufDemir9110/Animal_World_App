@@ -1,5 +1,6 @@
 import { loadPage } from "../helpers/loadPage.js";
 import { memoryGameView } from "./memoryGameView.js";
+import { welcomePage } from "../welcome/welcomePage.js";
 
 export const memoryGamePage = () => {
   const handleNumber = (number) => {
@@ -85,7 +86,18 @@ export const memoryGamePage = () => {
     view.showHint(result);
   };
 
-  const props = { handleNumber, count, initQuestion, nextQuestion, getHint };
+  const backHomePageClick = () => {
+    loadPage(welcomePage);
+  };
+
+  const props = {
+    handleNumber,
+    count,
+    initQuestion,
+    nextQuestion,
+    getHint,
+    backHomePageClick,
+  };
   const view = memoryGameView(props);
   return view;
 };
