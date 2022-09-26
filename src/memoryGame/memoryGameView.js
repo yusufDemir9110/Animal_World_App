@@ -9,7 +9,8 @@ export const memoryGameView = (props) => {
   } = props;
   const element = document.createElement("div");
   element.innerHTML = String.raw`
-        <h1>memory Game View</h1>
+        <div class="inner">
+<h1>memory Game View</h1>
         <div>
          <label htmlFor="name">
           Name <input type="text" id="name"/>
@@ -34,6 +35,8 @@ export const memoryGameView = (props) => {
         <div>
           <button id="backHomePage">Back to Home Page</button>
         </div>
+        </div>
+        
     `;
   const cardContainer = element.querySelector("#cardContainer");
   const spans = Array.from(element.querySelectorAll("span"));

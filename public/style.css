@@ -1,7 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Mouse+Memoirs&display=swap');
+:root{
+    --color-lightBlue:#ebf2fa;
+    --color-blue:#427aa1;
+    --color-darkBlue:#064789;
+    --color-green:#679436;
+    --color-yellowGreen:#cae900;
+}
+
 *{
     margin:0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Mouse Memoirs', sans-serif;
 }
 #appContainer{
     width: 100vw;
@@ -9,14 +19,195 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-image: url("./assets/background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-blend-mode: difference;
 }
+
+#root{
+    background-color: var(--color-lightBlue);
+    border-radius: 1rem;
+    border: 2px solid var(--color-green);
+    width: 80vw;
+    height: 90vh;
+}
+
+h1{
+    font-size: 4rem;
+    text-align: center;
+}
+
+h3{
+    font-size: 2rem;
+    text-align: center;
+}
+
+.inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/*welcome page*/
+
+
+
+#welcomeTitle{
+    margin:1rem;
+    text-align: center;
+    color: var(--color-darkBlue);
+}
+
+.buttonContainer{
+    margin:2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonContainer h3{
+    font-weight: lighter;
+    margin-bottom: 1rem;
+}
+
+.start{
+    font-size: 1.8rem;
+}
+
+.btn{
+    color:var(--color-yellowGreen);
+    background-color: var(--color-darkBlue);
+    border: 2px solid var(--color-green);
+    border-radius: 1rem;
+    position: relative;
+    width: 10rem;
+    height: 3rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.btn:hover{
+    transform: rotate(-5deg) scale(1.05);
+    color: var(--color-darkBlue);
+    background-color: var(--color-yellowGreen);
+}
+
+
+
+
+
+/*Animal Tour Page*/
+
+
+#tourCardContainer{
+    height: 25rem;
+}
+#tourCardContainer div{   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tourImgContainer{
+    margin: 2rem;
+}
+
+.tourImgContainer img {
+    height: 22rem;
+    width: 22rem;
+    object-fit: contain;
+}
+
+.tourTableContainer{
+    font-size: 1.3rem;
+}
+
+.tourTableContainer th{
+    font-size: 1.8rem;
+}
+.tourTableContainer td{
+    padding: 0.4rem 0.8rem;
+}
+.buttons{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.dummy{
+    visibility: hidden;
+}
+
+#getData{
+    font-size: 2rem;
+    width: 14rem;
+}
+
+#backHomePage{
+    font-size: 1.3rem;
+}
+
+/*Comparison Page*/
+
+.chooseNumber{
+    display: flex;
+}
+.chooseNumber div{
+    font-size: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-darkBlue);
+    color: var(--color-yellowGreen);
+    margin: 1rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    border:2px solid var(--color-green);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.chooseNumber div:hover {
+    transform: rotate(15deg) scale(1.1);
+    color: var(--color-darkBlue);
+    background-color: var(--color-yellowGreen);
+    
+}
+
+#sort{
+    display: none;
+}
+
+#sortSelect{
+    font-size:1.5rem;
+}
+
+#sortSelect:hover{
+    transform: rotate(0deg) scale(1);
+}
+
 #cardContainer{
     display: flex;
     justify-content: space-evenly;
+    height: 23rem;
 }
+
+.card{
+    margin: 0.5rem 1rem;
+}
+
 .card img{
-    width:20%;
+    width: 10rem;
+    height:10rem;
+    object-fit: contain;
 }
-#tourCartContainer img {
-    width: 20%;
+
+#comparisonTableContainer{
+    font-size: 1.3rem;
+}
+
+#comparisonTableContainer td{
+    padding: 0.2rem 0.5rem;
 }
