@@ -10,57 +10,91 @@ export const memoryGameView = (props) => {
   const element = document.createElement("div");
   element.innerHTML = String.raw`
         <div class="inner">
-<h1>memory Game View</h1>
-        <div>
-         <label htmlFor="name">
-          Name <input type="text" id="name"/>
-         </label>
-        </div>
-        <div>
-         <label htmlFor="age">
-          Age <input type="number" id="age"/>
-         </label>
-        </div>
-        <div>
-          <h2>How many animals</h2>
-          <span>5</span>
-          <span>6</span>
-          <span>7</span>
-          <span>8</span>
-          <span>9</span>
-          <span>10</span>
-        </div>
-        <div id="showCount">${count}</div>
-        <div id="cardContainer"></div>
-        <div>
-          <button id="backHomePage">Back to Home Page</button>
-        </div>
+          <h1>Memory Game</h1>
+          <div id="startPage">
+          <form>
+            <h3>1. Enter your name and age</h3>
+            <div>
+            <label for="name">
+              <input class="nameAge" type="text" id="name" placeholder="Enter your name*..."/>
+            </label>
+            <label for="age">
+              <input class="nameAge" type="number" id="age" placeholder="Enter your age*..."/>
+            </label>
+            </div>
+          </form>
+          <form class="disabled" id="secondP">
+            <h3>2. Depending on the number you choose, some animals will be shown to you. 
+              You have 5 seconds to memorize the name of each animal. 
+              The game will start when you choose the number</h3>
+              <label for="gotIt">
+                <input type="checkBox" id="gotIt"/>Got it!
+              </label>
+              
+          </form>
+          <div class="disabled" id="thirdP">
+            <h3>How many animals do you want to play with?</h3>
+            <div class="chooseNumber ">
+              <div class="chooseItem">5</div>
+              <div class="chooseItem">6</div>
+              <div class="chooseItem">7</div>
+              <div class="chooseItem">8</div>
+              <div class="chooseItem">9</div>
+              <div class="chooseItem">10</div>
+            </div>     
+          </div>
+          </div>
+          
+          
+          <div id="showCount">${count}</div>
+          <div id="cardContainer"></div>
+          <div>
+            <button id="backHomePage">Back to Home Page</button>
+          </div>
         </div>
         
     `;
   const cardContainer = element.querySelector("#cardContainer");
-  const spans = Array.from(element.querySelectorAll("span"));
+  const chooseItems = Array.from(element.querySelectorAll(".chooseItem"));
   const showCountEl = element.querySelector("#showCount");
-  spans.forEach((span) => {
-    span.addEventListener("click", (e) => {
+  const nameAgeInputs = Array.from(element.querySelectorAll(".nameAge"));
+  const secondP = element.querySelector("#secondP");
+  const gotIt = element.querySelector("#gotIt");
+  const thirdP = element.querySelector("#thirdP");
+  const startPage = element.querySelector("#startPage");
+  chooseItems.forEach((item) => {
+    item.addEventListener("click", (e) => {
       handleNumber(parseInt(e.target.innerText));
       cleanCardContainer();
+    });
+  });
+
+  nameAgeInputs.forEach((item) => {
+    item.addEventListener("change", () => {
+      nameAgeInputs[0].value !== "" && nameAgeInputs[1].value !== ""
+        ? secondP.classList.remove("disabled")
+        : secondP.classList.add("disabled");
     });
   });
 
   const cleanCardContainer = () => {
     cardContainer.innerHTML = "";
   };
+
+  gotIt.addEventListener("change", () => {
+    gotIt.checked
+      ? thirdP.classList.remove("disabled")
+      : thirdP.classList.add("disabled");
+  });
+
   const showData = (data) => {
+    startPage.style.display = "none";
+    showCountEl.style.display = "flex";
     const card = document.createElement("div");
     card.classList.add("card");
     card.innerHTML = String.raw`
         <img src=${data.image_link} alt=${data.name} />
         <h3>${data.name.replace("-", " ")}</h3>
-        <h4>${data.animal_type}</h4>
-        <h4>${data.habitat}</h4>
-        <h4>${data.geo_range}</h4>
-        <h4>${data.diet}</h4>
       `;
     cardContainer.appendChild(card);
   };
@@ -70,8 +104,11 @@ export const memoryGameView = (props) => {
 
   const gamePhaseStart = (data) => {
     cardContainer.innerHTML = String.raw`
-      <h1>Memory is over! Are you ready for game?</h1>
-      <button id="yesBtn">YES</button>
+      <div class="buttonContainer">
+        <h3>Memorizing is over! Are you ready for the questions?</h3>
+        <button class="btn" id="yesBtn">YES</button>
+      </div>
+      
     `;
     document
       .querySelector("#yesBtn")
@@ -79,6 +116,7 @@ export const memoryGameView = (props) => {
   };
 
   const showQuestion = (data, index) => {
+    cleanCardContainer();
     const name = element.querySelector("#name").value;
     const age = element.querySelector("#age").value;
     const card = document.createElement("div");

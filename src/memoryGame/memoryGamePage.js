@@ -30,6 +30,7 @@ export const memoryGamePage = () => {
         view.showCount(count);
       } else {
         count = 2;
+        view.showCount(count);
         clearInterval(intervalId);
         view.cleanCardContainer();
         if (number > 0) {
