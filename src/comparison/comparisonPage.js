@@ -13,7 +13,6 @@ export const comparisonPage = () => {
         `https://zoo-animal-api.herokuapp.com/animals/rand/${number}`
       );
       const data = await response.json();
-      console.log(data);
       view.showData(data);
     } catch (error) {
       console.log(error.message);

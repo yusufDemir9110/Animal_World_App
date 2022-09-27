@@ -143,7 +143,7 @@ export const memoryGameView = (props) => {
               
                 <div id="showHint"></div>
               
-                <button class="btn queBtn" id="nextQuestion">Next</button>
+                <button class="btn queBtn disabled" id="nextQuestion">Next</button>
               
             </div>
           </div> 
@@ -153,27 +153,33 @@ export const memoryGameView = (props) => {
         
       `;
     cardContainer.appendChild(card);
+    const answerSubmitEl = document.querySelector("#answerSubmit");
 
-    document.querySelector("#answerSubmit").addEventListener("click", () => {
-      const userAnswer = document.querySelector("#userAnswer").value;
-      const questionText = document.querySelector("#questionText");
+    const userAnswer = document.querySelector("#userAnswer");
+    const questionText = document.querySelector("#questionText");
+    const nextQuestionEl = document.querySelector("#nextQuestion");
+    answerSubmitEl.addEventListener("click", () => {
+      nextQuestionEl.classList.remove("disabled");
       if (
-        userAnswer.toLowerCase() ===
+        userAnswer.value.toLowerCase() ===
         data[index].name.toLowerCase().replace("-", " ")
       ) {
         questionText.textContent = `Congratulations! The answer is ${data[index].name}`;
         questionText.style.color = "green";
       } else {
-        questionText.textContent = `Sorry! The answer must be ${data[index].name}`;
+        questionText.textContent = `The answer must be ${data[index].name}`;
         questionText.style.color = "red";
       }
     });
-    const nextQuestionEl = document.querySelector("#nextQuestion");
-    nextQuestionEl.addEventListener("click", () =>
-      nextQuestion(data, index, name)
-    );
+
+    nextQuestionEl.addEventListener("click", () => {
+      nextQuestion(data, index, name);
+    });
     const getHintEl = document.querySelector("#getHint");
-    getHintEl.addEventListener("click", () => getHint(data, index, age));
+    getHintEl.addEventListener("click", () => {
+      getHint(data, index, age);
+      getHintEl.classList.add("disabled");
+    });
   };
 
   const showHint = (result) => {

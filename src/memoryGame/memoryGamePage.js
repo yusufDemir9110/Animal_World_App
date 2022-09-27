@@ -13,7 +13,6 @@ export const memoryGamePage = () => {
         `https://zoo-animal-api.herokuapp.com/animals/rand/${number}`
       );
       const data = await response.json();
-      console.log(data);
       showSlide(data, number - 1);
     } catch (error) {
       console.log(error.message);

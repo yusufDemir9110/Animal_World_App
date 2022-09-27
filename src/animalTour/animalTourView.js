@@ -19,7 +19,6 @@ export const animalTourView = (props) => {
   });
   const showData = (data) => {
     getDataBtn.textContent = "Change";
-    console.log(data);
     const card = document.createElement("div");
     card.innerHTML = String.raw`
     <div class="tourImgContainer">
