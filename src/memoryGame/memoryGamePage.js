@@ -19,7 +19,7 @@ export const memoryGamePage = () => {
     }
   };
 
-  let count = 2;
+  let count = 4;
   const showSlide = (data, number) => {
     view.showData(data[number]);
     let intervalId = null;
@@ -28,7 +28,7 @@ export const memoryGamePage = () => {
         count--;
         view.showCount(count);
       } else {
-        count = 2;
+        count = 4;
         view.showCount(count);
         clearInterval(intervalId);
         view.cleanCardContainer();

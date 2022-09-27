@@ -26,7 +26,7 @@ export const memoryGameView = (props) => {
           </form>
           <form class="disabled" id="secondP">
             <p>2. Depending on the number you choose, some animals will be shown to you. 
-              You have 5 seconds to memorize the name of each animal. 
+              You have 4 seconds to memorize the name of each animal. 
               The game will start when you choose the number</p>
               <label for="gotIt">
                 <input type="checkBox" id="gotIt"/>Got it!
