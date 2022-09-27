@@ -4,34 +4,35 @@ export const comparisonView = (props) => {
   const element = document.createElement("div");
 
   element.innerHTML = String.raw`
-        <h1>random Learn View</h1>
-        <div>
-          <h2>How many animals</h2>
-          <span>2</span>
-          <span>3</span>
-          <span>4</span>
-          <span>5</span>
-        </div>
-        <div id="cardContainer"></div>
-        <div id="sort">
-          <select id="sortSelect">
-            <option disabled selected>Sort by</option>
-            <option value="lifespan">lifespan</option>
-            <option value="weight_max">weight</option>
-            <option value="length_max">length</option>
-          </select>
-        </div>
-        <div>
-          <button id="backHomePage">Back to Home Page</button>
-        </div>
-        
+        <div class="inner">
+          <h1>Comparison</h1>       
+          <h3>How many animals would you like to compare?</h3>
+          <div class="chooseNumber">
+            <div class="chooseItem">2</div>
+            <div class="chooseItem">3</div>
+            <div class="chooseItem">4</div>
+            <div class="chooseItem">5</div>
+          </div>       
+          <div id="cardContainer"></div>  
+              <select class="btn" id="sortSelect">
+                <option id="selectedOp" value="sortBy" disabled selected>Sort by</option>
+                <option value="lifespan">lifespan</option>
+                <option value="weight_max">weight</option>
+                <option value="length_max">length</option>
+              </select> 
+              <button class="btn" id="backHomePage">Back to Home Page</button>
+        </div>    
     `;
   const cardContainer = element.querySelector("#cardContainer");
-  const spans = Array.from(element.querySelectorAll("span"));
-  spans.forEach((span) => {
-    span.addEventListener("click", (e) => {
+  const chooseItems = Array.from(element.querySelectorAll(".chooseItem"));
+
+  const sortSelectEl = element.querySelector("#sortSelect");
+
+  chooseItems.forEach((item) => {
+    item.addEventListener("click", (e) => {
       handleNumber(parseInt(e.target.innerText));
       cleanCardContainer();
+      document.querySelector("#selectedOp").selected = true;
     });
   });
   const cleanCardContainer = () => {
@@ -39,24 +40,43 @@ export const comparisonView = (props) => {
   };
 
   const showData = (data) => {
+    sortSelectEl.style.display = "block";
     data.forEach((data) => {
       const card = document.createElement("div");
       card.classList.add("card");
+
       card.innerHTML = String.raw`
         <img src=${data.image_link} alt=${data.name} />
-        <h3>${data.name}</h3>
-        <h4>${data.animal_type}</h4>
-        <h4>${data.habitat}</h4>
-        <h4>${data.geo_range}</h4>
-        <h4>${data.diet}</h4>
-        <h4>${data.lifespan}</h4>
-        <h4>${data.length_max}</h4>
-        <h4>${data.weight_max}</h4>
+        <div id="comparisonTableContainer">
+        <table>
+          <thead>
+            <tr>
+              <th colspan="2">${data.name}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Animal Type</td>
+              <td>${data.animal_type}</td>
+            </tr>
+            <tr>
+              <td>Lifespan</td>
+              <td>${data.lifespan} years</td>
+            </tr>
+            <tr>
+              <td>Max. Length</td>
+              <td>${data.length_max} ft.</td>
+            </tr>
+            <tr>
+              <td>Max Weight</td>
+              <td>${data.weight_max} lb.</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
       `;
       cardContainer.appendChild(card);
     });
-
-    const sortSelectEl = element.querySelector("#sortSelect");
     sortSelectEl.addEventListener("change", (e) =>
       handleSort(e.target.value, data)
     );

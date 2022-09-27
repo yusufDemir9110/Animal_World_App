@@ -13,7 +13,6 @@ export const memoryGamePage = () => {
         `https://zoo-animal-api.herokuapp.com/animals/rand/${number}`
       );
       const data = await response.json();
-      console.log(data);
       showSlide(data, number - 1);
     } catch (error) {
       console.log(error.message);
@@ -30,6 +29,7 @@ export const memoryGamePage = () => {
         view.showCount(count);
       } else {
         count = 2;
+        view.showCount(count);
         clearInterval(intervalId);
         view.cleanCardContainer();
         if (number > 0) {
@@ -97,6 +97,7 @@ export const memoryGamePage = () => {
     nextQuestion,
     getHint,
     backHomePageClick,
+    showSlide,
   };
   const view = memoryGameView(props);
   return view;
