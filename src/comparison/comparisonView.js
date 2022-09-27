@@ -13,31 +13,21 @@ export const comparisonView = (props) => {
             <div class="chooseItem">4</div>
             <div class="chooseItem">5</div>
           </div>       
-          <div id="cardContainer"></div>
-          
-          <div class="buttons">
-            <div class="buttonContainer dummy">
-              <button class="btn"></button>
-            </div>
-            <div class="buttonContainer" id="sort">
+          <div id="cardContainer"></div>  
               <select class="btn" id="sortSelect">
                 <option id="selectedOp" value="sortBy" disabled selected>Sort by</option>
                 <option value="lifespan">lifespan</option>
                 <option value="weight_max">weight</option>
                 <option value="length_max">length</option>
-              </select>
-            </div>
-            <div class="buttonContainer">
+              </select> 
               <button class="btn" id="backHomePage">Back to Home Page</button>
-            </div>
-          </div>
-        </div>
-        
-        
+        </div>    
     `;
   const cardContainer = element.querySelector("#cardContainer");
   const chooseItems = Array.from(element.querySelectorAll(".chooseItem"));
-  const sortEl = element.querySelector("#sort");
+
+  const sortSelectEl = element.querySelector("#sortSelect");
+
   chooseItems.forEach((item) => {
     item.addEventListener("click", (e) => {
       handleNumber(parseInt(e.target.innerText));
@@ -50,7 +40,7 @@ export const comparisonView = (props) => {
   };
 
   const showData = (data) => {
-    sortEl.style.display = "block";
+    sortSelectEl.style.display = "block";
     data.forEach((data) => {
       const card = document.createElement("div");
       card.classList.add("card");
@@ -87,8 +77,6 @@ export const comparisonView = (props) => {
       `;
       cardContainer.appendChild(card);
     });
-
-    const sortSelectEl = element.querySelector("#sortSelect");
     sortSelectEl.addEventListener("change", (e) =>
       handleSort(e.target.value, data)
     );

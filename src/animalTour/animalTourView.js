@@ -4,20 +4,9 @@ export const animalTourView = (props) => {
   element.innerHTML = String.raw`
       <div class="inner">
         <h1>Animal Tour</h1>
-        <div id="tourCardContainer"></div>
-        <div class="buttons">
-          <div class="buttonContainer dummy">
-            <button class="btn"></button>
-          </div>
-          <div class="buttonContainer">
-            <button class="btn" id="getData">Start</button>
-          </div>
-        
-          <div class="buttonContainer">
+        <div id="tourCardContainer"></div>         
+            <button class="btn" id="getData">Start</button>          
             <button class="btn" id="backHomePage">Back to Home Page</button>
-          </div>
-        </div>
-        
       </div>
         
     `;

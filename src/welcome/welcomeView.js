@@ -6,8 +6,7 @@ export const welcomeView = (props) => {
     <h1 id="welcomeTitle">Welcome to Animal World App</h1>
     <div class="buttonContainer">
       <h3>Start a funny and informative journey through the animal world</h3>
-      <button class="start btn" id="animalTourStart" value="animalTour">Animal Tour</button>
-     
+      <button class="start btn" id="animalTourStart" value="animalTour">Animal Tour</button>    
     </div>
     <div class="buttonContainer">
       <h3>Compare animals and learn</h3>

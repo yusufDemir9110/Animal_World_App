@@ -6,6 +6,7 @@ export const memoryGameView = (props) => {
     nextQuestion,
     getHint,
     backHomePageClick,
+    showSlide,
   } = props;
   const element = document.createElement("div");
   element.innerHTML = String.raw`
@@ -13,8 +14,8 @@ export const memoryGameView = (props) => {
           <h1>Memory Game</h1>
           <div id="startPage">
           <form>
-            <h3>1. Enter your name and age</h3>
-            <div>
+            <p>1. Enter your name and age</p>
+            <div class="labels center">
             <label for="name">
               <input class="nameAge" type="text" id="name" placeholder="Enter your name*..."/>
             </label>
@@ -24,9 +25,9 @@ export const memoryGameView = (props) => {
             </div>
           </form>
           <form class="disabled" id="secondP">
-            <h3>2. Depending on the number you choose, some animals will be shown to you. 
+            <p>2. Depending on the number you choose, some animals will be shown to you. 
               You have 5 seconds to memorize the name of each animal. 
-              The game will start when you choose the number</h3>
+              The game will start when you choose the number</p>
               <label for="gotIt">
                 <input type="checkBox" id="gotIt"/>Got it!
               </label>
@@ -35,7 +36,6 @@ export const memoryGameView = (props) => {
           <div class="disabled" id="thirdP">
             <h3>How many animals do you want to play with?</h3>
             <div class="chooseNumber ">
-              <div class="chooseItem">5</div>
               <div class="chooseItem">6</div>
               <div class="chooseItem">7</div>
               <div class="chooseItem">8</div>
@@ -47,14 +47,14 @@ export const memoryGameView = (props) => {
           
           
           <div id="showCount">${count}</div>
-          <div id="cardContainer"></div>
-          <div>
-            <button id="backHomePage">Back to Home Page</button>
-          </div>
+          <div id="memoryCardContainer"></div>
+        
+          <button class="btn" id="backHomePage">Back to Home Page</button>
+          
         </div>
         
     `;
-  const cardContainer = element.querySelector("#cardContainer");
+  const cardContainer = element.querySelector("#memoryCardContainer");
   const chooseItems = Array.from(element.querySelectorAll(".chooseItem"));
   const showCountEl = element.querySelector("#showCount");
   const nameAgeInputs = Array.from(element.querySelectorAll(".nameAge"));
@@ -93,7 +93,7 @@ export const memoryGameView = (props) => {
     const card = document.createElement("div");
     card.classList.add("card");
     card.innerHTML = String.raw`
-        <img src=${data.image_link} alt=${data.name} />
+        <img class="memorizingImg" src=${data.image_link} alt=${data.name} />
         <h3>${data.name.replace("-", " ")}</h3>
       `;
     cardContainer.appendChild(card);
@@ -103,16 +103,22 @@ export const memoryGameView = (props) => {
   };
 
   const gamePhaseStart = (data) => {
+    showCountEl.style.display = "none";
     cardContainer.innerHTML = String.raw`
       <div class="buttonContainer">
         <h3>Memorizing is over! Are you ready for the questions?</h3>
         <button class="btn" id="yesBtn">YES</button>
+        <button class="btn" id="noBtn">NO, MEMORIZE AGAIN!</button>
       </div>
       
     `;
     document
       .querySelector("#yesBtn")
       .addEventListener("click", () => initQuestion(data));
+    document.querySelector("#noBtn").addEventListener("click", () => {
+      cleanCardContainer();
+      showSlide(data, data.length - 1);
+    });
   };
 
   const showQuestion = (data, index) => {
@@ -122,25 +128,45 @@ export const memoryGameView = (props) => {
     const card = document.createElement("div");
     card.classList.add("card");
     card.innerHTML = String.raw`
-        <img src=${data[index].image_link} alt=${data[index].name} />
-        <h4>${name} what is this animal's name?</h4>
-        <div>
-          <input type="text" id="userAnswer" placeholder="Write here..."/>
-          <input type="submit" id="answerSubmit"/>
-          <button id="nextQuestion">Next</button>
-          <button id="getHint">Get Hint</button>
+      <div>
+        <div class="questionContainer center">
+          <img class="memorizingImg" src=${data[index].image_link} alt=${data[index].name} />
+          <div class="inner">
+            <h3 id="questionText">${name} what is this animal's name?</h3>
+            <input type="text" id="userAnswer" placeholder="Write here..."/>
+            <div class="queButtons">
+              
+                <button class="btn queBtn" id="answerSubmit">Check</button>
+              
+              
+                <button class="btn queBtn" id="getHint">Get Hint</button>
+              
+                <div id="showHint"></div>
+              
+                <button class="btn queBtn" id="nextQuestion">Next</button>
+              
+            </div>
+          </div> 
         </div>
+      </div>
         
-        <div id="showHint"></div>
+        
       `;
     cardContainer.appendChild(card);
 
     document.querySelector("#answerSubmit").addEventListener("click", () => {
       const userAnswer = document.querySelector("#userAnswer").value;
-      userAnswer.toLowerCase() ===
-      data[index].name.toLowerCase().replace("-", " ")
-        ? (card.style.backgroundColor = "green")
-        : (card.style.backgroundColor = "red");
+      const questionText = document.querySelector("#questionText");
+      if (
+        userAnswer.toLowerCase() ===
+        data[index].name.toLowerCase().replace("-", " ")
+      ) {
+        questionText.textContent = `Congratulations! The answer is ${data[index].name}`;
+        questionText.style.color = "green";
+      } else {
+        questionText.textContent = `Sorry! The answer must be ${data[index].name}`;
+        questionText.style.color = "red";
+      }
     });
     const nextQuestionEl = document.querySelector("#nextQuestion");
     nextQuestionEl.addEventListener("click", () =>
@@ -157,7 +183,7 @@ export const memoryGameView = (props) => {
 
   const questionFinal = (name) => {
     cardContainer.innerHTML = String.raw`
-      <h1>Congratulations ${name}! You finished the game!</h1>
+      <h2 class="center">Congratulations ${name}! You finished the game!</h2>
       
     `;
   };

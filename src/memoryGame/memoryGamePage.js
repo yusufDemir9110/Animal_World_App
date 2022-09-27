@@ -98,6 +98,7 @@ export const memoryGamePage = () => {
     nextQuestion,
     getHint,
     backHomePageClick,
+    showSlide,
   };
   const view = memoryGameView(props);
   return view;
