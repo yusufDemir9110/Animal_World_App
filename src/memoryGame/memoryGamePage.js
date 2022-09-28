@@ -58,7 +58,7 @@ export const memoryGamePage = () => {
   };
 
   const getHint = (data, index, age) => {
-    let hint = data[index].name.replace("-", " ");
+    const hint = data[index].name.replace("-", " ");
     let hintWords = hint.split(" ");
     let result = "";
     if (age > 10) {

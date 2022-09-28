@@ -80,7 +80,6 @@ export const comparisonView = (props) => {
   };
 
   const showError = (message) => {
-    console.log(message);
     cardContainer.innerHTML = String.raw`
       <h3 class="center">Oops! Something went wrong! ${message}</h3>
     `;
