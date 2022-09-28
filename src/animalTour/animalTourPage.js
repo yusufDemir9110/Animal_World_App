@@ -15,7 +15,7 @@ export const animalTourPage = () => {
       const data = await response.json();
       view.showData(data);
     } catch (error) {
-      console.log(error.message);
+      view.showError(error.message);
     }
   };
 

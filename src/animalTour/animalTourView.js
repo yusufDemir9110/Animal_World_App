@@ -7,16 +7,17 @@ export const animalTourView = (props) => {
         <div id="tourCardContainer"></div>         
             <button class="btn" id="getData">Start</button>          
             <button class="btn" id="backHomePage">Back to Home Page</button>
-      </div>
-        
+      </div>        
     `;
 
   const getDataBtn = element.querySelector("#getData");
-  const tourCardContainerEl = element.querySelector("#tourCardContainer");
+  const cardContainer = element.querySelector("#tourCardContainer");
+
   getDataBtn.addEventListener("click", () => {
     handleChange();
-    tourCardContainerEl.innerHTML = "";
+    cardContainer.innerHTML = "";
   });
+
   const showData = (data) => {
     getDataBtn.textContent = "Change";
     const card = document.createElement("div");
@@ -68,10 +69,17 @@ export const animalTourView = (props) => {
       </table>
     </div>
       `;
-    tourCardContainerEl.appendChild(card);
+    cardContainer.appendChild(card);
   };
+
+  const showError = (message) => {
+    cardContainer.innerHTML = String.raw` 
+      <h3 class="center">Oops! Something went wrong! ${message}</h3>
+      `;
+  };
+
   const backHomePageEl = element.querySelector("#backHomePage");
   backHomePageEl.addEventListener("click", backHomePageClick);
 
-  return { element, showData };
+  return { element, showData, showError };
 };

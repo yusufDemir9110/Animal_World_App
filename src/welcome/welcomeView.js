@@ -16,10 +16,7 @@ export const welcomeView = (props) => {
       <h3>Play the memory game about animals</h3>
       <button class="start btn" id="memoryGameStart" value="memoryGame">Memory Game</button>
     </div>
-  </div>
-    
-    
-    
+  </div>   
     `;
   Array.from(element.querySelectorAll(".start")).forEach((item) => {
     item.addEventListener("click", onStartClick);

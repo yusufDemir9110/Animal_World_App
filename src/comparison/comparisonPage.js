@@ -15,7 +15,7 @@ export const comparisonPage = () => {
       const data = await response.json();
       view.showData(data);
     } catch (error) {
-      console.log(error.message);
+      view.showError(error.message);
     }
   };
 
@@ -24,6 +24,7 @@ export const comparisonPage = () => {
     view.cleanCardContainer();
     view.showData(sortedData);
   };
+
   const backHomePageClick = () => {
     loadPage(welcomePage);
   };

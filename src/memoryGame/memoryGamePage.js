@@ -15,7 +15,7 @@ export const memoryGamePage = () => {
       const data = await response.json();
       showSlide(data, number - 1);
     } catch (error) {
-      console.log(error.message);
+      view.showError(error.message);
     }
   };
 
@@ -41,6 +41,7 @@ export const memoryGamePage = () => {
     };
     intervalId = setInterval(counterRender, 1000);
   };
+
   const initQuestion = (data) => {
     const index = data.length - 1;
     view.showQuestion(data, index);

@@ -1,8 +1,6 @@
 export const comparisonView = (props) => {
   const { handleNumber, handleSort, backHomePageClick } = props;
-
   const element = document.createElement("div");
-
   element.innerHTML = String.raw`
         <div class="inner">
           <h1>Comparison</h1>       
@@ -25,7 +23,6 @@ export const comparisonView = (props) => {
     `;
   const cardContainer = element.querySelector("#cardContainer");
   const chooseItems = Array.from(element.querySelectorAll(".chooseItem"));
-
   const sortSelectEl = element.querySelector("#sortSelect");
 
   chooseItems.forEach((item) => {
@@ -35,6 +32,7 @@ export const comparisonView = (props) => {
       document.querySelector("#selectedOp").selected = true;
     });
   });
+
   const cleanCardContainer = () => {
     cardContainer.innerHTML = "";
   };
@@ -44,7 +42,6 @@ export const comparisonView = (props) => {
     data.forEach((data) => {
       const card = document.createElement("div");
       card.classList.add("card");
-
       card.innerHTML = String.raw`
         <img src=${data.image_link} alt=${data.name} />
         <div id="comparisonTableContainer">
@@ -82,8 +79,15 @@ export const comparisonView = (props) => {
     );
   };
 
+  const showError = (message) => {
+    console.log(message);
+    cardContainer.innerHTML = String.raw`
+      <h3 class="center">Oops! Something went wrong! ${message}</h3>
+    `;
+  };
+
   const backHomePageEl = element.querySelector("#backHomePage");
   backHomePageEl.addEventListener("click", backHomePageClick);
 
-  return { element, showData, cleanCardContainer };
+  return { element, showData, showError, cleanCardContainer };
 };

@@ -13,46 +13,40 @@ export const memoryGameView = (props) => {
         <div class="inner">
           <h1>Memory Game</h1>
           <div id="startPage">
-          <form>
-            <p>1. Enter your name and age</p>
-            <div class="labels center">
-            <label for="name">
-              <input class="nameAge" type="text" id="name" placeholder="Enter your name*..."/>
-            </label>
-            <label for="age">
-              <input class="nameAge" type="number" id="age" placeholder="Enter your age*..."/>
-            </label>
+            <form>
+              <p>1. Enter your name and age</p>
+              <div class="labels center">
+                <label for="name">
+                  <input class="nameAge" type="text" id="name" placeholder="Enter your name*..."/>
+                </label>
+                <label for="age">
+                  <input class="nameAge" type="number" id="age" placeholder="Enter your age*..."/>
+                </label>
+              </div>
+            </form>
+            <form class="disabled" id="secondP">
+              <p>2. Depending on the number you choose, some animals will be shown to you. 
+                You have 4 seconds to memorize the name of each animal. 
+                The game will start when you choose the number</p>
+                <label for="gotIt">
+                  <input type="checkBox" id="gotIt"/>Got it!
+                </label>             
+            </form>
+            <div class="disabled" id="thirdP">
+              <h3>How many animals do you want to play with?</h3>
+              <div class="chooseNumber ">
+                <div class="chooseItem">6</div>
+                <div class="chooseItem">7</div>
+                <div class="chooseItem">8</div>
+                <div class="chooseItem">9</div>
+                <div class="chooseItem">10</div>
+              </div>     
             </div>
-          </form>
-          <form class="disabled" id="secondP">
-            <p>2. Depending on the number you choose, some animals will be shown to you. 
-              You have 4 seconds to memorize the name of each animal. 
-              The game will start when you choose the number</p>
-              <label for="gotIt">
-                <input type="checkBox" id="gotIt"/>Got it!
-              </label>
-              
-          </form>
-          <div class="disabled" id="thirdP">
-            <h3>How many animals do you want to play with?</h3>
-            <div class="chooseNumber ">
-              <div class="chooseItem">6</div>
-              <div class="chooseItem">7</div>
-              <div class="chooseItem">8</div>
-              <div class="chooseItem">9</div>
-              <div class="chooseItem">10</div>
-            </div>     
-          </div>
-          </div>
-          
-          
+          </div>         
           <div id="showCount">${count}</div>
           <div id="memoryCardContainer"></div>
-        
           <button class="btn" id="backHomePage">Back to Home Page</button>
-          
         </div>
-        
     `;
   const cardContainer = element.querySelector("#memoryCardContainer");
   const chooseItems = Array.from(element.querySelectorAll(".chooseItem"));
@@ -62,6 +56,7 @@ export const memoryGameView = (props) => {
   const gotIt = element.querySelector("#gotIt");
   const thirdP = element.querySelector("#thirdP");
   const startPage = element.querySelector("#startPage");
+
   chooseItems.forEach((item) => {
     item.addEventListener("click", (e) => {
       handleNumber(parseInt(e.target.innerText));
@@ -98,6 +93,7 @@ export const memoryGameView = (props) => {
       `;
     cardContainer.appendChild(card);
   };
+
   const showCount = (count) => {
     showCountEl.textContent = count;
   };
@@ -134,30 +130,23 @@ export const memoryGameView = (props) => {
           <div class="inner">
             <h3 id="questionText">${name} what is this animal's name?</h3>
             <input type="text" id="userAnswer" placeholder="Write here..."/>
-            <div class="queButtons">
-              
-                <button class="btn queBtn" id="answerSubmit">Check</button>
-              
-              
-                <button class="btn queBtn" id="getHint">Get Hint</button>
-              
-                <div id="showHint"></div>
-              
-                <button class="btn queBtn disabled" id="nextQuestion">Next</button>
-              
+            <div class="queButtons">         
+                <button class="btn queBtn" id="answerSubmit">Check</button>             
+                <button class="btn queBtn" id="getHint">Get Hint</button>             
+                <div id="showHint"></div>           
+                <button class="btn queBtn disabled" id="nextQuestion">Next</button>            
             </div>
           </div> 
         </div>
-      </div>
-        
-        
+      </div>       
       `;
+
     cardContainer.appendChild(card);
     const answerSubmitEl = document.querySelector("#answerSubmit");
-
     const userAnswer = document.querySelector("#userAnswer");
     const questionText = document.querySelector("#questionText");
     const nextQuestionEl = document.querySelector("#nextQuestion");
+
     answerSubmitEl.addEventListener("click", () => {
       nextQuestionEl.classList.remove("disabled");
       if (
@@ -175,6 +164,7 @@ export const memoryGameView = (props) => {
     nextQuestionEl.addEventListener("click", () => {
       nextQuestion(data, index, name);
     });
+
     const getHintEl = document.querySelector("#getHint");
     getHintEl.addEventListener("click", () => {
       getHint(data, index, age);
@@ -189,8 +179,14 @@ export const memoryGameView = (props) => {
 
   const questionFinal = (name) => {
     cardContainer.innerHTML = String.raw`
-      <h2 class="center">Congratulations ${name}! You finished the game!</h2>
-      
+      <h2 class="center">Congratulations ${name}! You finished the game!</h2>    
+    `;
+  };
+
+  const showError = (message) => {
+    startPage.innerHTML = "";
+    cardContainer.innerHTML = String.raw`  
+      <h3 class="center">Oops! Something went wrong! ${message}</h3> 
     `;
   };
 
@@ -203,6 +199,7 @@ export const memoryGameView = (props) => {
     showCount,
     showQuestion,
     showHint,
+    showError,
     cleanCardContainer,
     gamePhaseStart,
     questionFinal,
