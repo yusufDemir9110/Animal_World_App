@@ -2,6 +2,8 @@
 
 Animal world application is a single page application which is coded via javascript. The purpose of the application is to provide information about the animal world with various activities. The primary target audience of the application is children.
 
+[Click here to visit application](https://yusufdemir9110.github.io/Animal_World_App/)
+
 ## API
 
 The application use a public api which is called "Zoo Animal". [Zoo Animal API](https://zoo-animal-api.herokuapp.com/animals/rand)
